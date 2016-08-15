@@ -1,5 +1,6 @@
 package com.example.z.newsapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +13,7 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
-public class LaunchActivity extends AppCompatActivity {
+public class LaunchActivity extends Activity {
 
     private ImageView mIvSplash;
 
@@ -59,7 +60,7 @@ public class LaunchActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+                Intent intent = new Intent(LaunchActivity.this, ADshowActivity.class);
                 startActivity(intent);
                 finish();
             }
