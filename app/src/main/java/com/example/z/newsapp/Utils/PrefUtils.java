@@ -2,6 +2,7 @@ package com.example.z.newsapp.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.animation.Animation;
 
 /**
  * 专门访问和设置SharePreference的工具类, 保存和配置一些设置信息

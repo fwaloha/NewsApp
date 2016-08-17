@@ -1,26 +1,37 @@
 package com.example.z.newsapp;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.media.Image;
+import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.z.newsapp.Utils.DensityUtils;
+import com.example.z.newsapp.Utils.PrefUtils;
 
 import java.util.ArrayList;
 
-public class ADshowActivity extends Activity {
+
+public class ADshowActivity extends Activity implements View.OnClickListener {
 
     private ViewPager mViewPager;
     private ArrayList<ImageView> imageViews;
     private int[] images = new int[]{R.mipmap.guide_1, R.mipmap.guide_2, R.mipmap.guide_3};
     private LinearLayout mLL;
+    private ImageView mIvRed;
+    private int distence;
+    private Button mBt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +46,9 @@ public class ADshowActivity extends Activity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mIvRed.getLayoutParams();
+                layoutParams.leftMargin = (int) (position*distence + positionOffset*distence);
+                mIvRed.setLayoutParams(layoutParams);
             }
 
             @Override
@@ -58,6 +72,9 @@ public class ADshowActivity extends Activity {
         mViewPager = (ViewPager) findViewById(R.id.vp);
         mViewPager.setAdapter(new GuaidAdapter());
         mLL = (LinearLayout) findViewById(R.id.ll_icon);
+        mIvRed = (ImageView) findViewById(R.id.iv_redoval);
+        mBt = (Button) findViewById(R.id.bt);
+        mBt.setOnClickListener(this);
     }
 
     private void initDate() {
@@ -77,6 +94,30 @@ public class ADshowActivity extends Activity {
             }
             view.setLayoutParams(layoutParams);
             mLL.addView(view);
+        }
+
+        mIvRed.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    mIvRed.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+                distence = mLL.getChildAt(1).getLeft() - mLL.getChildAt(0).getLeft();
+            }
+        });
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.bt:
+                PrefUtils.putBoolean(this,"isreadguaid",true);
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
         }
     }
 

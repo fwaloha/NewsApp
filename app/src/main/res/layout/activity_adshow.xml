@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
-        android:layout_height="wrap_content">
+        android:layout_marginBottom="60dp">
 
         <LinearLayout
             android:id="@+id/ll_icon"
@@ -25,15 +25,16 @@
 
         <ImageView
             android:id="@+id/iv_redoval"
-            android:src="@drawable/redoval"
             android:layout_width="10dp"
-            android:layout_height="10dp" />
-    </FrameLayout>
+            android:layout_height="10dp"
+            android:src="@drawable/redoval" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="48dp"
         android:background="@drawable/sl_bg_red_gray"

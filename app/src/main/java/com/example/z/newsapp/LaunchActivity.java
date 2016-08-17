@@ -13,6 +13,8 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
+import com.example.z.newsapp.Utils.PrefUtils;
+
 public class LaunchActivity extends Activity {
 
     private ImageView mIvSplash;
@@ -60,8 +62,14 @@ public class LaunchActivity extends Activity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Intent intent = new Intent(LaunchActivity.this, ADshowActivity.class);
-                startActivity(intent);
+                boolean isreadguaid = PrefUtils.getBoolean(LaunchActivity.this, "isreadguaid",false);
+                if (isreadguaid) {
+                    Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(LaunchActivity.this, ADshowActivity.class);
+                    startActivity(intent);
+                }
                 finish();
             }
 
